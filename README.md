@@ -1,5 +1,11 @@
 # Homework 9
 
+## Learning Outcomes
+
+- MSTs and Union-Find
+- MVC
+- Iterator
+
 Based on this existing assignment in Java:
 
 This assignment involves animating the construction of a minimum spanning tree to connect BART stations using train tracks.
