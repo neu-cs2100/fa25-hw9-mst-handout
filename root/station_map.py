@@ -1,6 +1,4 @@
-# ============================================================================
 # FILE: station_map.py
-# ============================================================================
 
 import math
 from typing import List
@@ -72,7 +70,7 @@ class StationMap:
             # TODO: Create Station object with name, latitude, longitude
             # TODO: Add station as a node to the graph
             # TODO: Increment num_stations_added
-            pass
+    pass
         
         # TODO: Add edges between all pairs of nodes
         # TODO: Calculate distance between each pair of stations
@@ -80,4 +78,4 @@ class StationMap:
         # TODO: Use nested loops to connect each pair of nodes
         # TODO: Avoid connecting a node to itself
         # TODO: Since edges are undirected, only add one edge per pair
-        pass
+    pass

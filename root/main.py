@@ -16,6 +16,8 @@ def main():
         
         # TODO: Find minimum spanning tree using Kruskal's algorithm
         
+        pass
+        
     except Exception as e:
         print(f"Error: {e}")
 
