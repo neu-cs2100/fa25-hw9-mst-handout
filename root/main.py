@@ -11,10 +11,10 @@ def main():
     This will build the station map and find the minimum spanning tree.
     """
     try:
-        # TODO: Create the station map
+        # Create the station map
         
         
-        # TODO: Find minimum spanning tree using Kruskal's algorithm
+        # Find minimum spanning tree using Kruskal's algorithm
         
         pass
         

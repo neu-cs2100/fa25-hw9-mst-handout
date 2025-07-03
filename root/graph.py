@@ -20,26 +20,27 @@ class Node(Generic[T]):
     
     def find(self) -> 'Node[T]':
         """
-        TODO: Implement the find operation for Union-Find.
+        Implement the find operation for Union-Find.
         Find the representative of the set to which this node belongs.
         For now, don't use path compression.
         
         Returns:
             The representative node of the set
         """
-        # TODO: Implement find operation
-        pass
+        return
+        # Implement find operation
+        
     
     def union(self, other: 'Node[T]') -> None:
         """
-        TODO: Implement the union operation for Union-Find.
+        Implement the union operation for Union-Find.
         Merges the two sets to which this node and the other node belong.
         Use union by rank for efficiency.
         
         Args:
             other: The other node to union with
         """
-        # TODO: Implement union operation
+        # Implement union operation
         pass
     
     def __str__(self) -> str:
@@ -91,13 +92,13 @@ class KruskalIterator(Generic[T]):
         self.next_edge: Optional[Edge[T]] = None
         self.expected_mod_count = mod_count
         
-        # TODO: Initialize the priority queue with all edges
-        # TODO: Compute the first edge that should be returned
+        # Initialize the priority queue with all edges
+        # Compute the first edge that should be returned
         pass
     
     def _compute_next_edge(self) -> None:
         """
-        TODO: Compute the next edge to be returned by the iterator.
+        Compute the next edge to be returned by the iterator.
         This should implement the core logic of Kruskal's algorithm:
         1. Get the next smallest edge from the priority queue
         2. Check if the edge connects two different components (using Union-Find)
@@ -105,7 +106,7 @@ class KruskalIterator(Generic[T]):
         4. If no, continue to the next edge
         5. If no more valid edges, set next_edge to None
         """
-        # TODO: Implement Kruskal's algorithm logic
+        # Implement Kruskal's algorithm logic
         pass
     
     def __iter__(self) -> Iterator[Edge[T]]:
@@ -113,14 +114,14 @@ class KruskalIterator(Generic[T]):
     
     def __next__(self) -> Edge[T]:
         """
-        TODO: Return the next edge in the MST.
+        Return the next edge in the MST.
         Should raise StopIteration when no more edges are available.
         Should raise RuntimeError if the graph was modified after iterator creation.
         """
-        # TODO: Check for concurrent modification
-        # TODO: Check if there's a next edge available
-        # TODO: Return current edge and compute the next one
-        pass
+        # Check for concurrent modification
+        # Check if there's a next edge available
+        # Return current edge and compute the next one
+        return
 
 
 class Graph(Generic[T]):

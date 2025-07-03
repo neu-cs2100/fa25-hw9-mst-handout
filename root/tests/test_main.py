@@ -17,22 +17,22 @@ class TestMain(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
-        # TODO: Set up any necessary test fixtures
+        #  Set up any necessary test fixtures
         pass
     
     def test_main_execution(self):
         """Test main function execution."""
-        # TODO: Test that main() runs without errors
+        # Test that main() runs without errors
     
     def test_main_with_empty_data(self):
         """Test main function with empty or missing data."""
-        # TODO: Test behavior when no station data is available
+        # Test behavior when no station data is available
         # Should handle gracefully without crashing
         pass
     
     def test_main_error_handling(self):
         """Test error handling in main function."""
-        # TODO: Test that main() handles various error conditions (at least 2 exceptions that you can think of) gracefully
+        # Test that main() handles various error conditions (at least 2 exceptions that you can think of) gracefully
         # Mock different error scenarios and verify proper error handling
         pass
 

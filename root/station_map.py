@@ -49,7 +49,7 @@ class StationMap:
     
     def _make_graph(self) -> None:
         """
-        TODO: Complete this method to build the graph.
+        Complete this method to build the graph.
         
         Steps:
         1. Read data from the CSV file
@@ -61,21 +61,20 @@ class StationMap:
         
         CSV format: station_name,station_id,longitude,latitude
         """
-      
         
-        # TODO: Parse CSV data and create nodes
+        # Parse CSV data and create nodes
         
             
-            # TODO: Parse the line (split by comma)
-            # TODO: Create Station object with name, latitude, longitude
-            # TODO: Add station as a node to the graph
-            # TODO: Increment num_stations_added
+            # Parse the line (split by comma)
+            # Create Station object with name, latitude, longitude
+            # Add station as a node to the graph
+            # Increment num_stations_added
     pass
         
-        # TODO: Add edges between all pairs of nodes
-        # TODO: Calculate distance between each pair of stations
-        # TODO: Add edge with distance as weight (convert to int)
-        # TODO: Use nested loops to connect each pair of nodes
-        # TODO: Avoid connecting a node to itself
-        # TODO: Since edges are undirected, only add one edge per pair
+        # Add edges between all pairs of nodes
+        # Calculate distance between each pair of stations
+        # Add edge with distance as weight (convert to int)
+        # Use nested loops to connect each pair of nodes
+        # Avoid connecting a node to itself
+        # Since edges are undirected, only add one edge per pair
     pass
