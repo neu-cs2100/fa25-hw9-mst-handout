@@ -112,12 +112,16 @@ class MapGraphics:
             
         y = self.get_y(node.data)
         
-        if self.canvas is not None:
-            circle_id = self.canvas.create_oval(
-                x - radius, y - radius, x + radius, y + radius,
-                fill=color, outline=color
-            )
-            self.add_hover(circle_id, x, y, node.data.name)
+        def draw() -> None:
+            if self.canvas is not None:
+                circle_id = self.canvas.create_oval(
+                    x - radius, y - radius, x + radius, y + radius,
+                    fill=color, outline=color
+                )
+                # self.add_hover(circle_id, x, y, node.data.name)
+        
+        if self.root is not None:
+            self.root.after(0, draw)
 
     def add_hover(self, item_id: int, x: int, y: int, text: str) -> None:
         """Add hover functionality to a canvas item"""
