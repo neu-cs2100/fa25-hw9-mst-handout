@@ -44,13 +44,13 @@ class TextWithBackgroundColor:
 
 class MapGraphics:
     # Constants
-    MAX_LATITUDE = 50
-    MIN_LATITUDE = 25
-    MAX_LONGITUDE = -65
-    MIN_LONGITUDE = -125
-    PIXELS_PER_DEGREE = 10
-    CANVAS_HEIGHT = (MAX_LATITUDE - MIN_LATITUDE) * PIXELS_PER_DEGREE
-    CANVAS_WIDTH = (MAX_LONGITUDE - MIN_LONGITUDE) * PIXELS_PER_DEGREE
+    MAX_LATITUDE = 38.1
+    MIN_LATITUDE = 37.3
+    MAX_LONGITUDE = -121.7
+    MIN_LONGITUDE = -122.5
+    PIXELS_PER_DEGREE = 1000
+    CANVAS_HEIGHT = int(float(MAX_LATITUDE - MIN_LATITUDE) * PIXELS_PER_DEGREE)
+    CANVAS_WIDTH = int(float(MAX_LONGITUDE - MIN_LONGITUDE) * PIXELS_PER_DEGREE)
     SCENE_WIDTH = CANVAS_WIDTH
     SCENE_HEIGHT = CANVAS_HEIGHT
     NODE_COLOR = "blue"
@@ -59,7 +59,7 @@ class MapGraphics:
     EDGE_HIGHLIGHT_COLOR = "purple"
     HOVER_BACKGROUND_COLOR = "yellow"
     NODE_RADIUS = 2
-    MIN_DISTANCE_FOR_LINE = 10
+    MIN_DISTANCE_FOR_LINE = 0
 
     _instance = None
     _initialized = False
@@ -76,15 +76,15 @@ class MapGraphics:
     @staticmethod
     def get_instance() -> 'Optional[MapGraphics]':
         """Gets the singleton instance of this class."""
-        MapGraphics()
-        while not MapGraphics._initialized:
+        if not MapGraphics._initialized:
+            MapGraphics()
             time.sleep(0.001)  # equivalent to Thread.yield()
         return MapGraphics._instance
 
     def start(self) -> None:
         """Start the GUI application"""
         self.root = tk.Tk()
-        self.root.title("Cities")
+        self.root.title("Stations")
         self.root.geometry(f"{self.SCENE_WIDTH}x{self.SCENE_HEIGHT}")
         
         # Create canvas
@@ -97,7 +97,6 @@ class MapGraphics:
         self.canvas.pack()
         
         MapGraphics._initialized = True
-        self.root.mainloop()
 
     def draw_node(self, node: Node, radius: Optional[int] = None, color: Optional[str] = None) -> None:
         """Draw a node on the canvas"""
@@ -106,22 +105,19 @@ class MapGraphics:
         if color is None:
             color = self.NODE_COLOR
             
-        x = self.get_x(node.get_data())
+        x = self.get_x(node.data)
         if x < 0:
-            print(f"Could not display {node.get_data()}")
+            print(f"Could not display {node.data}")
             return
             
-        y = self.get_y(node.get_data())
+        y = self.get_y(node.data)
         
-        def draw() -> None:
-            if self.canvas is not None:
-                circle_id = self.canvas.create_oval(
-                    x - radius, y - radius, x + radius, y + radius,
-                    fill=color, outline=color
-                )
-                self.add_hover(circle_id, x, y, node.get_data().get_name())
-                if self.root is not None:
-                    self.root.after(0, draw)
+        if self.canvas is not None:
+            circle_id = self.canvas.create_oval(
+                x - radius, y - radius, x + radius, y + radius,
+                fill=color, outline=color
+            )
+            self.add_hover(circle_id, x, y, node.data.name)
 
     def add_hover(self, item_id: int, x: int, y: int, text: str) -> None:
         """Add hover functionality to a canvas item"""
@@ -142,8 +138,8 @@ class MapGraphics:
         if color is None:
             color = self.EDGE_COLOR
             
-        station1 = edge.get_node1().get_data()
-        station2 = edge.get_node2().get_data()
+        station1 = edge.node1.data
+        station2 = edge.node2.data
         
         x1, y1 = self.get_x(station1), self.get_y(station1)
         x2, y2 = self.get_x(station2), self.get_y(station2)
@@ -155,11 +151,11 @@ class MapGraphics:
                 if enable_hover:
                     mid_x = (x1 + x2) // 2
                     mid_y = (y1 + y2) // 2
-                    hover_text = f"{station1.get_name()} - {station2.get_name()} ({edge.get_weight()})"
+                    hover_text = f"{station1.name} - {station2.name} ({edge.weight})"
                     self.add_hover(line_id, mid_x, mid_y, hover_text)
-                
-                if self.root is not None:
-                    self.root.after(0, draw)
+            
+        if self.root is not None:
+            self.root.after(0, draw)
 
     def draw_graph(self, graph: Graph) -> None:
         """
@@ -167,13 +163,17 @@ class MapGraphics:
         least MIN_DISTANCE_FOR_LINE.
         """
         # Draw edges first (so they appear behind nodes)
-        for edge in graph.get_edges():
-            if edge.get_weight() >= self.MIN_DISTANCE_FOR_LINE:
+        for edge in graph.edges:
+            if edge.weight >= self.MIN_DISTANCE_FOR_LINE:
                 self.draw_edge(edge)
         
         # Draw nodes
-        for node in graph.get_nodes():
+        for node in graph.nodes:
             self.draw_node(node)
+    
+    def make_visible(self) -> None:
+        if self.root is not None:
+            self.root.mainloop()
 
     def highlight_node(self, node: Node, color: Optional[str] = None) -> None:
         """Highlight a node with a specific color"""
@@ -189,17 +189,17 @@ class MapGraphics:
 
     def get_x(self, station: Station) -> int:
         """Get X coordinate for a station"""
-        return self.long_to_x(station.get_longitude())
+        return self.long_to_x(station.longitude)
 
     def get_y(self, station: Station) -> int:
         """Get Y coordinate for a station"""
-        return self.lat_to_y(station.get_latitude())
+        return self.lat_to_y(station.latitude)
 
-    def long_to_x(self, longitude: int) -> int:
+    def long_to_x(self, longitude: float) -> int:
         """Convert longitude to X coordinate"""
         return int((longitude - self.MIN_LONGITUDE) * self.PIXELS_PER_DEGREE)
 
-    def lat_to_y(self, latitude: int) -> int:
+    def lat_to_y(self, latitude: float) -> int:
         """Convert latitude to Y coordinate"""
         return self.SCENE_HEIGHT - int((latitude - self.MIN_LATITUDE) * self.PIXELS_PER_DEGREE)
 

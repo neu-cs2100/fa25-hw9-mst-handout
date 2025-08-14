@@ -12,7 +12,7 @@ def main() -> None:
         # Create and draw the graph of the stations.
         map_graphics = MapGraphics.get_instance()
         map = StationMap()
-        graph = map.get_graph()
+        graph = map.graph
         map_graphics.draw_graph(graph)
         
         # Calculate and display the minimum spanning tree.
@@ -23,9 +23,11 @@ def main() -> None:
         for edge in iterator:
             map_graphics.highlight_edge(edge)
             num_edges += 1
-            total_distance += edge.get_weight()
+            total_distance += edge.weight
             time.sleep(PAUSE_BETWEEN_EDGE_HIGHLIGHTING_MS / 1000.0)  # Convert to seconds
         
+        map_graphics.make_visible()
+
         print(f"The minimum spanning tree has {num_edges} edges and is {total_distance} miles long.")
         
     except KeyboardInterrupt:

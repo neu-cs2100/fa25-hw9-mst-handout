@@ -15,9 +15,6 @@ class Node(Generic[T]):
         self.parent = self  # Initially, each node is its own parent
         self.rank = 0
     
-    def get_data(self) -> T:
-        return self.data
-    
     def find(self) -> 'Node[T]':
         """
         Implement the find operation for Union-Find.
@@ -48,7 +45,7 @@ class Node(Generic[T]):
             if self == self.find():
                 return str(self.data)
             else:
-                return f"{self.data.get_name()} ({self.find()})"
+                return f"{self.data.name} ({self.find()})"
         return str(self.data)
 
 
@@ -60,21 +57,12 @@ class Edge(Generic[T]):
         self.node2 = node2
         self.weight = weight
     
-    def get_node1(self) -> Node[T]:
-        return self.node1
-    
-    def get_node2(self) -> Node[T]:
-        return self.node2
-    
-    def get_weight(self) -> int:
-        return self.weight
-    
     def __lt__(self, other: 'Edge[T]') -> bool:
         """For use with heapq (min-heap)."""
         return self.weight < other.weight
     
     def __str__(self) -> str:
-        return f"Edge({self.node1.get_data()}, {self.node2.get_data()}, {self.weight})"
+        return f"Edge({self.node1.data}, {self.node2.data}, {self.weight})"
 
 
 class KruskalIterator(Iterator[Edge[T]]):
@@ -88,7 +76,6 @@ class KruskalIterator(Iterator[Edge[T]]):
             edges: List of all edges in the graph
             mod_count: Modification count for concurrent modification detection
         """
-        self.edge_queue: List[Edge[T]] = []
         self.next_edge: Optional[Edge[T]] = None
         self.expected_mod_count = mod_count
         
@@ -115,10 +102,11 @@ class KruskalIterator(Iterator[Edge[T]]):
         Should raise StopIteration when no more edges are available.
         Should raise RuntimeError if the graph was modified after iterator creation.
         """
-        # Check for concurrent modification
-        # Check if there's a next edge available
-        # Return current edge and compute the next one
-        pass
+        # Check for concurrent modification (if the mod count is the expected mod count)
+        # Check if there's a next edge available (self.next_edge is not None)
+        # Return current edge after computing and storing the next one in self.next_edge
+        # If there is no next edge, raise StopIteration
+        raise StopIteration
 
 
 class Graph(Generic[T]):
@@ -138,14 +126,6 @@ class Graph(Generic[T]):
         """Add an edge between two nodes with the specified weight."""
         self.mod_count += 1
         self.edges.append(Edge(node1, node2, weight))
-    
-    def get_nodes(self) -> List[Node[T]]:
-        """Get all nodes in the graph."""
-        return self.nodes
-    
-    def get_edges(self) -> List[Edge[T]]:
-        """Get all edges in the graph."""
-        return self.edges
     
     def get_kruskal_iterator(self) -> KruskalIterator[T]:
         """

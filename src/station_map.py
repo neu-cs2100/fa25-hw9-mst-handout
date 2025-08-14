@@ -10,17 +10,20 @@ class StationMap:
     """Graph representation of BART stations built from CSV data."""
     
     # Constants
-    STATION_DATA_FILE = "BART.csv"
+    STATION_DATA_FILE = "/Users/rasikabhalerao/2025Summer/2100/fa25-hw9-mst-handout/src/data/BART.csv"
+    NUM_DATA_FIELDS = 4
+    STATION_NAME_FIELD = 0
+    LONGITUDE_FIELD = 2
+    LATITUDE_FIELD = 3
+
+
+    NUM_STATIONS = 50  # File has 100. when set to -1, all data is used
+
     EARTH_RADIUS_IN_MILES = 3963
-    NUM_STATIONS = -1  # When set to -1, all data is used
     
     def __init__(self) -> None:
         self.graph: Graph[Station] = Graph()
         self._make_graph()
-    
-    def get_graph(self) -> Graph[Station]:
-        """Get the graph representation of stations and distances between them."""
-        return self.graph
     
     @staticmethod
     def _distance_in_miles(station1: Station, station2: Station) -> float:
@@ -29,10 +32,10 @@ class StationMap:
         
         Formula: d = 3963.0 * arccos[(sin(lat1) * sin(lat2)) + cos(lat1) * cos(lat2) * cos(long2 – long1)]
         """
-        lat1_rad = math.radians(station1.get_latitude())
-        lat2_rad = math.radians(station2.get_latitude())
-        lon1_rad = math.radians(station1.get_longitude())
-        lon2_rad = math.radians(station2.get_longitude())
+        lat1_rad = math.radians(station1.latitude)
+        lat2_rad = math.radians(station2.latitude)
+        lon1_rad = math.radians(station1.longitude)
+        lon2_rad = math.radians(station2.longitude)
         
         return StationMap.EARTH_RADIUS_IN_MILES * math.acos(
             (math.sin(lat1_rad) * math.sin(lat2_rad)) +
@@ -51,9 +54,11 @@ class StationMap:
         """
         Complete this method to build the graph.
         
-        Steps:
+        Done for you:
         1. Read data from the CSV file
         2. Parse each line to create Station objects and add them as nodes
+
+        Steps for students to do:
         3. Add edges connecting each pair of nodes with weight as distance in miles
         4. Use the _distance_in_miles helper method
         5. Since edges are undirected, add only one edge between each pair
@@ -61,20 +66,27 @@ class StationMap:
         
         CSV format: station_name,station_id,longitude,latitude
         """
+        lines: List[str] = self._read_data_from_file()
+        num_stations = 0
+
+        for line in lines:
+            num_stations += 1
+            if num_stations >= self.NUM_STATIONS:
+                break
+            fields: List[str] = line.split(sep = ',')
+            if len(fields) == self.NUM_DATA_FIELDS:
+                station = Station(
+                    fields[self.STATION_NAME_FIELD],
+                    float(fields[self.LATITUDE_FIELD]),
+                    float(fields[self.LONGITUDE_FIELD]))
+                self.graph.add_node(station)
+            else:
+                raise ValueError(f'Unable to parse line: {line}')
         
-        # Parse CSV data and create nodes
-        
-            
-            # Parse the line (split by comma)
-            # Create Station object with name, latitude, longitude
-            # Add station as a node to the graph
-            # Increment num_stations_added
-    pass
-        
-        # Add edges between all pairs of nodes
-        # Calculate distance between each pair of stations
-        # Add edge with distance as weight (convert to int)
-        # Use nested loops to connect each pair of nodes
-        # Avoid connecting a node to itself
-        # Since edges are undirected, only add one edge per pair
-    pass
+
+
+        # Complete this method by adding edges connecting each pair of nodes.
+        # The weight of the edge should be the distance in miles between their
+        # cities. Use the provided helper method. Because the edges are
+        # undirected, you should add only one edge between each pair of nodes.
+        # Do not make an edge between a node and itself.
