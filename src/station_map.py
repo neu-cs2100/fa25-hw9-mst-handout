@@ -17,7 +17,7 @@ class StationMap:
     LATITUDE_FIELD = 3
 
 
-    NUM_STATIONS = 50  # File has 100. when set to -1, all data is used
+    NUM_STATIONS = 5  # File has 100. when set to -1, all data is used
 
     EARTH_RADIUS_IN_MILES = 3963
     
@@ -34,13 +34,10 @@ class StationMap:
         """
         lat1_rad = math.radians(station1.latitude)
         lat2_rad = math.radians(station2.latitude)
-        lon1_rad = math.radians(station1.longitude)
-        lon2_rad = math.radians(station2.longitude)
-        
-        return StationMap.EARTH_RADIUS_IN_MILES * math.acos(
-            (math.sin(lat1_rad) * math.sin(lat2_rad)) +
-            math.cos(lat1_rad) * math.cos(lat2_rad) * math.cos(lon2_rad - lon1_rad)
-        )
+
+        unit_sphere = (math.sin(lat1_rad) * math.sin(lat2_rad)) + (math.cos(lat1_rad) * math.cos(lat2_rad) * math.cos(math.radians(station2.longitude - station1.longitude)))
+        clamped_value = max(-1, min(1, unit_sphere))
+        return StationMap.EARTH_RADIUS_IN_MILES * math.acos(clamped_value)
     
     def _read_data_from_file(self) -> List[str]:
         """Read station data from CSV file."""
@@ -71,7 +68,7 @@ class StationMap:
 
         for line in lines:
             num_stations += 1
-            if num_stations >= self.NUM_STATIONS:
+            if self.NUM_STATIONS != -1 and num_stations > self.NUM_STATIONS:
                 break
             fields: List[str] = line.split(sep = ',')
             if len(fields) == self.NUM_DATA_FIELDS:
@@ -83,8 +80,6 @@ class StationMap:
             else:
                 raise ValueError(f'Unable to parse line: {line}')
         
-
-
         # Complete this method by adding edges connecting each pair of nodes.
         # The weight of the edge should be the distance in miles between their
         # cities. Use the provided helper method. Because the edges are

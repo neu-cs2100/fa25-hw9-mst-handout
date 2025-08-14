@@ -10,3 +10,8 @@ class Station:
     
     def __str__(self) -> str:
         return self.name
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Station):
+            return False
+        return self.name == other.name and self.latitude == other.latitude and self.longitude == other.longitude
