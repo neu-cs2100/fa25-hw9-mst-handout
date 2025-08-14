@@ -29,11 +29,8 @@ As always, you should commit often (at least once per milestone below) and regul
 
 The `main()` function is in `main.py`. When you run the program, you should see this visualization of the station locations:
 
-IMAGE
+<img width="796" height="824" alt="Blue dots in locations of stations" src="https://github.com/user-attachments/assets/9d230ad3-2c07-4fa2-b56a-8ce3f0b0af88" />
 
-Note that you can get information about a station by hovering over it:
-
-IMAGE
 
 ## Milestone 1: Build and Display Graph
 
@@ -43,7 +40,8 @@ Complete this method by adding edges connecting each pair of nodes. The weight o
 
 After completing the milestone, you should see this when you run the program (from `main.py`) with a value of 5 for `NUM_STATIONS` in `StationMap`:
 
-IMAGE
+<img width="795" height="828" alt="Blue dots with green lines" src="https://github.com/user-attachments/assets/7f942a03-6e8a-45fd-a752-a6e325b49974" />
+
 
 ## Milestone 2: Build and Display the Minimum Spanning Tree
 
@@ -51,13 +49,16 @@ This milestone is about the iterator, which is in the `class KruskalIterator` in
 
 Specifically, you will need to replace the stub implementation of the `class KruskalIterator` with an implementation that provides the edges selected by Kruskal's Algorithm. The necessary data structures are specified in the constructor. You do not need to write tests.
 
-We suggest pre-computing the first edge in the constructor and storing it in an instance variable so it is available (or null) when `__next__()` is called. Similarly, before returning the value in `__next__()`, compute and store the next edge.
+You will also need to implement `find` and `union` in the `Node` class above (in `graph.py`).
+
+In `KruskalIterator`, we suggest pre-computing the first edge in the constructor, and storing it in an instance variable so it is available (or null) when `__next__()` is called. Similarly, before returning the value in `__next__()`, compute and store the next edge.
 
 You should raise a `RuntimeError` if, after the iterator is created, (1) the outer graph is modified and (2) `__next__()` is called.
 
 Once you have completed this part, when you run the program from `main.py`, the MST of the graph will be displayed. Here is what a graph of 5 stations should look like:
 
-IMAGE
+<img width="796" height="822" alt="Map of five stations with four edges highlighted" src="https://github.com/user-attachments/assets/6744f346-aa39-43af-a4ca-86e34a8e360b" />
+
 
 The output should be: The minimum spanning tree has 4 edges and is 70 miles long. It is possible you will get a value slightly different from 70 miles due to rounding.
 
