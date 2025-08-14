@@ -27,7 +27,7 @@ class Node(Generic[T]):
         Returns:
             The representative node of the set
         """
-        return
+        pass
         # Implement find operation
         
     
@@ -46,7 +46,7 @@ class Node(Generic[T]):
     def __str__(self) -> str:
         if isinstance(self.data, Station):
             if self == self.find():
-                return self.data.get_name()
+                return str(self.data)
             else:
                 return f"{self.data.get_name()} ({self.find()})"
         return str(self.data)
@@ -77,7 +77,7 @@ class Edge(Generic[T]):
         return f"Edge({self.node1.get_data()}, {self.node2.get_data()}, {self.weight})"
 
 
-class KruskalIterator(Generic[T]):
+class KruskalIterator(Iterator[Edge[T]]):
     """Iterator that provides edges according to Kruskal's Algorithm."""
     
     def __init__(self, edges: List[Edge[T]], mod_count: int):
@@ -88,7 +88,7 @@ class KruskalIterator(Generic[T]):
             edges: List of all edges in the graph
             mod_count: Modification count for concurrent modification detection
         """
-        self.edge_queue = []  # Use as min-heap
+        self.edge_queue: List[Edge[T]] = []
         self.next_edge: Optional[Edge[T]] = None
         self.expected_mod_count = mod_count
         
@@ -109,9 +109,6 @@ class KruskalIterator(Generic[T]):
         # Implement Kruskal's algorithm logic
         pass
     
-    def __iter__(self) -> Iterator[Edge[T]]:
-        return self
-    
     def __next__(self) -> Edge[T]:
         """
         Return the next edge in the MST.
@@ -121,13 +118,13 @@ class KruskalIterator(Generic[T]):
         # Check for concurrent modification
         # Check if there's a next edge available
         # Return current edge and compute the next one
-        return
+        pass
 
 
 class Graph(Generic[T]):
     """A graph with nodes and weighted edges."""
     
-    def __init__(self):
+    def __init__(self) -> None:
         self.nodes: List[Node[T]] = []
         self.edges: List[Edge[T]] = []
         self.mod_count = 0

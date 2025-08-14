@@ -10,11 +10,11 @@ class StationMap:
     """Graph representation of BART stations built from CSV data."""
     
     # Constants
-    STATION_DATA_FILE = "BART.csv" #Whatever the actual csv will be
+    STATION_DATA_FILE = "BART.csv"
     EARTH_RADIUS_IN_MILES = 3963
-    NUM_STATIONS = -1  # When set to -1, all data is used;
+    NUM_STATIONS = -1  # When set to -1, all data is used
     
-    def __init__(self):
+    def __init__(self) -> None:
         self.graph: Graph[Station] = Graph()
         self._make_graph()
     

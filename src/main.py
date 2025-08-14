@@ -1,25 +1,42 @@
-# ============================================================================
-# FILE: main.py
-# ============================================================================
-
+import time
 from station_map import StationMap
+from map_graphics import MapGraphics
 
 
-def main():
-    """
-    Main function to test the implementation.
-    This will build the station map and find the minimum spanning tree.
-    """
+PAUSE_BETWEEN_EDGE_HIGHLIGHTING_MS = 500  # milliseconds
+
+
+def main() -> None:
+    """Main execution method that runs the controller logic"""
     try:
-        # Create the station map
+        # Create and draw the graph of the stations.
+        map_graphics = MapGraphics.get_instance()
+        map = StationMap()
+        graph = map.get_graph()
+        map_graphics.draw_graph(graph)
         
+        # Calculate and display the minimum spanning tree.
+        iterator = graph.get_kruskal_iterator()
+        num_edges = 0
+        total_distance = 0
         
-        # Find minimum spanning tree using Kruskal's algorithm
+        for edge in iterator:
+            map_graphics.highlight_edge(edge)
+            num_edges += 1
+            total_distance += edge.get_weight()
+            time.sleep(PAUSE_BETWEEN_EDGE_HIGHLIGHTING_MS / 1000.0)  # Convert to seconds
         
-        pass
+        print(f"The minimum spanning tree has {num_edges} edges and is {total_distance} miles long.")
         
+    except KeyboardInterrupt:
+        # Handle interruption gracefully
+        print("Process interrupted by user.")
+    except IOError as e:
+        print(f"There was problem reading the input: {e}")
     except Exception as e:
-        print(f"Error: {e}")
+        # Handle any other unexpected exceptions
+        print(f"An unexpected error occurred: {e}")
+        raise
 
 
 if __name__ == "__main__":
