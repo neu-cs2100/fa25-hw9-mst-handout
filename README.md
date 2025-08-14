@@ -84,11 +84,11 @@ Optional milestones should be made in a separate branch. One place you can learn
 
 - Autograder: 60
 - Manual grading: 18
- - Correctness
-   - final output
-   - `__next__()` implementation
- - Style
-   - naming
-   - code duplication
-   - formatting
+  - Correctness
+    - final output
+    - `__next__()` implementation
+  - Style
+    - naming
+    - code duplication
+    - formatting
 - Summary.md: 22
