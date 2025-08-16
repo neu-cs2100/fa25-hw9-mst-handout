@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This repository is for viewing only. Do not work on the assignment using this repository -- the actual course assignments will be provided to you via Pawtograder.
+
 # Homework 9
 
 ## Learning Outcomes
@@ -91,11 +94,11 @@ Optional milestones should be made in a separate branch. One place you can learn
 
 - Autograder: 60
 - Manual grading: 18
- - Correctness
-   - final output
-   - `__next__()` implementation
- - Style
-   - naming
-   - code duplication
-   - formatting
+  - Correctness
+    - final output
+    - `__next__()` implementation
+  - Style
+    - naming
+    - code duplication
+    - formatting
 - Summary.md: 22
