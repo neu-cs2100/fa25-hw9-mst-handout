@@ -24,7 +24,6 @@ def main() -> None:
             map_graphics.highlight_edge(edge)
             num_edges += 1
             total_distance += edge.weight
-            time.sleep(PAUSE_BETWEEN_EDGE_HIGHLIGHTING_MS / 1000.0)  # Convert to seconds
         
         map_graphics.make_visible()
 

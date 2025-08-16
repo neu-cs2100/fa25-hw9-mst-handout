@@ -26,7 +26,7 @@ class Node(Generic[T]):
         """
         pass
         # Implement find operation
-        
+
     
     def union(self, other: 'Node[T]') -> None:
         """
@@ -108,9 +108,6 @@ class KruskalIterator(Iterator[Edge[T]]):
         self.expected_mod_count = mod_count
         self.next_edge: Optional[Edge[T]] = None
         self._compute_next_edge()
-        
-        # Initialize the priority queue with all edges
-        # Compute the first edge that should be returned
     
     def _compute_next_edge(self) -> None:
         """

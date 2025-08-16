@@ -5,8 +5,9 @@
 - Minimum Spanning Trees and Union-Find
 - The Model-View-Controller paradigm
 - Iterator
+- Working with an existing codebase
 
-This assignment involves animating the construction of a minimum spanning tree to connect BART stations using train tracks.
+This assignment involves animating the construction of a minimum spanning tree to connect public transportation stations using train tracks.
 
 The learning outcomes are:
 
@@ -32,7 +33,7 @@ The `main()` function is in `main.py`. When you run the program, you should see 
 <img width="796" height="824" alt="Blue dots in locations of stations" src="https://github.com/user-attachments/assets/9d230ad3-2c07-4fa2-b56a-8ce3f0b0af88" />
 
 
-## Milestone 1: Build and Display Graph
+## Milestone 1: Build and Display Graph for BART (Oakland's public transportation)
 
 Complete the method `_make_graph(self)` in `StationMap` (in `station_map.py`). The implementation steps are written as comments in the file. It reads in stations from a file and builds a graph with a node for every station. Note that there is a constant `NUM_STATIONS` that you can modify, which may be helpful for debugging.
 
@@ -43,7 +44,7 @@ After completing the milestone, you should see this when you run the program (fr
 <img width="795" height="828" alt="Blue dots with green lines" src="https://github.com/user-attachments/assets/7f942a03-6e8a-45fd-a752-a6e325b49974" />
 
 
-## Milestone 2: Build and Display the Minimum Spanning Tree
+## Milestone 2: Build and Display the Minimum Spanning Tree for BART
 
 This milestone is about the iterator, which is in the `class KruskalIterator` in `graph.py`:
 
@@ -65,6 +66,12 @@ The output should be: The minimum spanning tree has 4 edges and is 70 miles long
 For the final test of your code, set `NUM_STATIONS` in `StationMap` to -1. Record the output sentence in `Summary.md`.
 
 You may want to modify the value of the constant `PAUSE_BETWEEN_EDGE_HIGHLIGHTING_MS` in `main.py` to make the updates faster or slower.
+
+## Milestone 3: Display the Minimum Spanning Tree for the T (Boston's public transportation)
+
+For this milestone, you will need to find the places in the codebase to properly display a minimum spanning tree for Boston's public transportation (the T).
+- Just as the data for BART is in `data/BART.csv`, the data for the T is in `T.csv`. It was scraped from [wikipedia.org](https://en.wikipedia.org/wiki/List_of_MBTA_subway_stations).
+- In order to make the display show the correct range of coordinates, you will need to change `MAX_LATITUDE`, `MIN_LATITUDE`, `MAX_LONGITUDE`, and `MIN_LONGITUDE` in `map_graphics.py`.
 
 ## Optional Milestones
 

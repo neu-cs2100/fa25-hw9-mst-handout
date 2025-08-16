@@ -10,14 +10,14 @@ class StationMap:
     """Graph representation of BART stations built from CSV data."""
     
     # Constants
-    STATION_DATA_FILE = "/Users/rasikabhalerao/2025Summer/2100/fa25-hw9-mst-handout/src/data/BART.csv"
+    STATION_DATA_FILE = "data/BART.csv"
     NUM_DATA_FIELDS = 4
     STATION_NAME_FIELD = 0
-    LONGITUDE_FIELD = 2
-    LATITUDE_FIELD = 3
+    LATITUDE_FIELD = 2
+    LONGITUDE_FIELD = 3
 
 
-    NUM_STATIONS = 5  # File has 100. when set to -1, all data is used
+    NUM_STATIONS = -1  # BART has 100. T has 152. When set to -1, all data is used
 
     EARTH_RADIUS_IN_MILES = 3963
     
